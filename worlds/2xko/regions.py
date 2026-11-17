@@ -20,7 +20,7 @@ def create_all_regions(world: ClimbWorld) -> None:
     caitlyn = Region("Caitlyn", world.player, world.multiworld)
     darius = Region("Darius", world.player, world.multiworld)
     ekko = Region("Ekko", world.player, world.multiworld)
-    illaoi = Region("Ilaoi", world.player, world.multiworld)
+    illaoi = Region("Illaoi", world.player, world.multiworld)
     jinx = Region("Jinx", world.player, world.multiworld)
     lux = Region("Lux", world.player, world.multiworld)
     samira = Region("Samira", world.player, world.multiworld)
