@@ -1,10 +1,30 @@
-from collections.abc import Mapping
 from typing import Any
+from . import items, locations, regions, rules
+from collections.abc import Mapping
+from BaseClasses import Tutorial
+from worlds.AutoWorld import World, WebWorld
+from .options import ClimbOptions, option_groups, option_presets
 
-from worlds.AutoWorld import World
 
-from . import items, locations, regions, rules, web_world
-from . import options as climb_options
+class ClimbWebWorld(WebWorld):
+    game = "2XKO - The Climb"
+
+    theme = "partyTime"
+
+    setup_en = Tutorial(
+        "Multiworld Setup Guide",
+        "A guide to set up 2XKO - The Climb up for a MultiWorld.",
+        "English",
+        "setup_en.md",
+        "setup/en",
+        ["RiverPanther"],
+    )
+
+    tutorials = [setup_en]
+
+    option_groups = option_groups
+    option_presets = option_presets
+
 
 class ClimbWorld(World):
     """
@@ -13,10 +33,10 @@ class ClimbWorld(World):
     """
     game = "2XKO - The Climb"
 
-    web = web.world.ClimbWebWorld()
+    web = ClimbWebWorld()
 
-    options_dataclass = climb_options.ClimbOptions
-    options: climb_options.ClimbOptions
+    options_dataclass = ClimbOptions
+    options: ClimbOptions
 
     location_name_to_id = locations.LOCATION_NAME_TO_ID
     item_name_to_id = items.ITEM_NAME_TO_ID
@@ -39,5 +59,8 @@ class ClimbWorld(World):
 
     def fill_slot_data(self) -> Mapping[str, Any]:
         return self.options.as_dict(
-            "ascendancy", "ability_sanity", "starting_champion", "starting_fuse"
+            "goal_character_count", "ability_sanity", "starting_champions", "starting_fuse", "deathlink"
         )
+
+
+

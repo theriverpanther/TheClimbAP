@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from BaseClasses import Entrance, Region
+from BaseClasses import Region
 
 if TYPE_CHECKING:
     from .world import ClimbWorld
@@ -58,4 +58,21 @@ def connect_regions(world: ClimbWorld) -> None:
     warwick = world.get_region("Warwick")
     yasuo = world.get_region("Yasuo")
 
-    # TO DO: Make entrances based on the items being in the multiworld
+    starter.connect(ahri, "Ahri")
+    starter.connect(akali, "Akali")
+    starter.connect(blitzcrank, "Blitzcrank")
+    starter.connect(braum, "Braum")
+    starter.connect(caitlyn, "Caitlyn")
+    starter.connect(darius, "Darius")
+    starter.connect(ekko, "Ekko")
+    starter.connect(illaoi, "Illaoi")
+    starter.connect(jinx, "Jinx")
+    starter.connect(lux, "Lux")
+    starter.connect(samira, "Samira")
+    starter.connect(senna, "Senna")
+    starter.connect(sett, "Sett")
+    starter.connect(teemo, "Teemo")
+    starter.connect(thresh, "Thresh")
+    starter.connect(vi, "Vi")
+    starter.connect(warwick, "Warwick")
+    starter.connect(yasuo, "Yasuo")
