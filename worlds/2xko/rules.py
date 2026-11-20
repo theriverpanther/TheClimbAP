@@ -14,15 +14,14 @@ if TYPE_CHECKING:
 
 def set_all_rules(world: ClimbWorld) -> None:
     # Call each logic helper function
-    set_all_location_rules(world)
+    # set_all_location_rules(world)
     set_goal_condition(world)
 
-def set_all_location_rules(world: ClimbWorld) -> None:
+# def set_all_location_rules(world: ClimbWorld) -> None:
     # for champ in CHAMPIONS:
         # region = world.get_region(champ)
         # for loc in region.locations:
             # world.set_rule(loc, Has(champ, 1))
-    print ("meh")
 
 def set_goal_condition(world: ClimbWorld) -> None:
     num_chars = world.options.goal_character_count.value

@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 
 from BaseClasses import Region
 from .items import CHAMPIONS
+from rule_builder.rules import Has
 
 if TYPE_CHECKING:
     from .__init__ import ClimbWorld
@@ -13,7 +14,7 @@ from Utils import visualize_regions
 def create_and_connect_regions(world: ClimbWorld) -> None:
     create_all_regions(world)
     connect_regions(world)
-    visualize_regions(world.multiworld.get_region("Menu", world.player), "2xko.puml")
+    # visualize_regions(world.multiworld.get_region("Menu", world.player), "2xko.puml")
 
 def create_all_regions(world: ClimbWorld) -> None:
     menu = Region("Menu", world.player, world.multiworld)
@@ -46,5 +47,5 @@ def connect_regions(world: ClimbWorld) -> None:
 
     for x in CHAMPIONS:
         champ = world.get_region(x)
-        menu.connect(champ, x + " Entrance", lambda state: state.has(x, world.player))
+        menu.connect(champ, x + " Entrance", Has(x, world.player))
 

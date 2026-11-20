@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from BaseClasses import ItemClassification, Location
+from rule_builder.rules import Has
 
 from . import items
 
@@ -440,7 +441,4 @@ def create_regular_locations(world: ClimbWorld) -> None:
 def create_events(world: ClimbWorld) -> None:
     for x in items.CHAMPIONS:
         region = world.get_region(x)
-        champ_clear = ClimbLocation(world.player, x + " Win Flag", None, region)
-        champ_clear.place_locked_item(items.ClimbItem("Win", ItemClassification.progression, None, world.player))
-        champ_clear.access_rule = lambda state: state.has(x, world.player)
-        region.locations.append(champ_clear)
+        region.add_event(x + " Win Flag", "Win")
