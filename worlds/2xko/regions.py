@@ -16,7 +16,7 @@ def create_and_connect_regions(world: ClimbWorld) -> None:
     visualize_regions(world.multiworld.get_region("Menu", world.player), "2xko.puml")
 
 def create_all_regions(world: ClimbWorld) -> None:
-    starter = Region("Menu", world.player, world.multiworld)
+    menu = Region("Menu", world.player, world.multiworld)
     ahri = Region("Ahri", world.player, world.multiworld)
     akali = Region("Akali", world.player, world.multiworld)
     blitzcrank = Region("Blitzcrank", world.player, world.multiworld)
@@ -36,14 +36,15 @@ def create_all_regions(world: ClimbWorld) -> None:
     warwick = Region("Warwick", world.player, world.multiworld)
     yasuo = Region("Yasuo", world.player, world.multiworld)
 
-    regions = [starter,ahri,akali,blitzcrank,braum,caitlyn,darius,ekko,illaoi,jinx,lux,samira,senna,sett,teemo,thresh,vi,warwick,yasuo]
+    regions = [menu,ahri,akali,blitzcrank,braum,caitlyn,darius,ekko,illaoi,jinx,lux,samira,senna,sett,teemo,thresh,vi,warwick,yasuo]
 
     world.multiworld.regions += regions
 
 def connect_regions(world: ClimbWorld) -> None:
     # Take the isolated regions and actually link them together
-    starter = world.get_region("Menu")
+    menu = world.get_region("Menu")
 
     for x in CHAMPIONS:
         champ = world.get_region(x)
-        starter.connect(champ, x, lambda state: state.has(x, world.player))
+        menu.connect(champ, x + " Entrance", lambda state: state.has(x, world.player))
+

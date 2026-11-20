@@ -4,7 +4,7 @@ from copy import copy
 from typing import TYPE_CHECKING
 
 from rule_builder.options import OptionFilter
-from rule_builder.rules import Has, HasFromListUnique, Rule
+from rule_builder.rules import Has
 from worlds.AutoWorld import CollectionState
 
 from .items import CHAMPIONS
@@ -18,14 +18,16 @@ def set_all_rules(world: ClimbWorld) -> None:
     set_goal_condition(world)
 
 def set_all_location_rules(world: ClimbWorld) -> None:
-    # for x in CHAMPIONS:
-    # world.set_rule(world.get_entrance(x), Has(x))
-    print("location rules")
+    # for champ in CHAMPIONS:
+        # region = world.get_region(champ)
+        # for loc in region.locations:
+            # world.set_rule(loc, Has(champ, 1))
+    print ("meh")
 
 def set_goal_condition(world: ClimbWorld) -> None:
     num_chars = world.options.goal_character_count.value
 
     assert num_chars > 0
-    world.set_completion_rule(lambda state: state.has("Win",world.player,num_chars))
+    world.set_completion_rule(Has("Win", num_chars))
 
 

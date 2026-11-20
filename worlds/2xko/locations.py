@@ -442,4 +442,5 @@ def create_events(world: ClimbWorld) -> None:
         region = world.get_region(x)
         champ_clear = ClimbLocation(world.player, x + " Win Flag", None, region)
         champ_clear.place_locked_item(items.ClimbItem("Win", ItemClassification.progression, None, world.player))
+        champ_clear.access_rule = lambda state: state.has(x, world.player)
         region.locations.append(champ_clear)
