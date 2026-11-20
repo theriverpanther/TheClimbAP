@@ -7,11 +7,10 @@ from BaseClasses import ItemClassification, Location
 from . import items
 
 if TYPE_CHECKING:
-    from world import ClimbWorld
+    from __init__ import ClimbWorld
 
 LOCATION_NAME_TO_ID = {
     # TO DO, determine how checks are hashed out (per character per progression, per node, etc)
-
     "Ahri 1": 1,
     "Ahri 2": 2,
     "Ahri 3": 3,
@@ -271,7 +270,7 @@ def get_location_names_with_ids(location_names: list[str]) -> dict[str, int | No
 
 def create_all_locations(world: ClimbWorld) -> None:
     create_regular_locations(world)
-    # create_events(world)
+    create_events(world)
 
 def create_regular_locations(world: ClimbWorld) -> None:
     # Place location checks into regions
@@ -438,5 +437,9 @@ def create_regular_locations(world: ClimbWorld) -> None:
 
     yasuo.add_locations(yasuo_locs, ClimbLocation)
 
-# Here if I need to create events, likely is not the case
-# def create_events(world: ClimbWorld) -> None:
+def create_events(world: ClimbWorld) -> None:
+    for x in items.CHAMPIONS:
+        region = world.get_region(x)
+        champ_clear = ClimbLocation(world.player, x + " Win Flag", None, region)
+        champ_clear.place_locked_item(items.ClimbItem("Win", ItemClassification.progression, None, world.player))
+        region.locations.append(champ_clear)

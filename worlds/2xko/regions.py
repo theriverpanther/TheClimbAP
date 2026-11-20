@@ -3,16 +3,20 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from BaseClasses import Region
+from .items import CHAMPIONS
 
 if TYPE_CHECKING:
-    from .world import ClimbWorld
+    from .__init__ import ClimbWorld
+
+from Utils import visualize_regions
 
 def create_and_connect_regions(world: ClimbWorld) -> None:
     create_all_regions(world)
     connect_regions(world)
+    visualize_regions(world.multiworld.get_region("Menu", world.player), "2xko.puml")
 
 def create_all_regions(world: ClimbWorld) -> None:
-    starter = Region("Starter", world.player, world.multiworld)
+    starter = Region("Menu", world.player, world.multiworld)
     ahri = Region("Ahri", world.player, world.multiworld)
     akali = Region("Akali", world.player, world.multiworld)
     blitzcrank = Region("Blitzcrank", world.player, world.multiworld)
@@ -38,41 +42,8 @@ def create_all_regions(world: ClimbWorld) -> None:
 
 def connect_regions(world: ClimbWorld) -> None:
     # Take the isolated regions and actually link them together
-    starter = world.get_region("Starter")
-    ahri = world.get_region("Ahri")
-    akali = world.get_region("Akali")
-    blitzcrank = world.get_region("Blitzcrank")
-    braum = world.get_region("Braum")
-    caitlyn = world.get_region("Caitlyn")
-    darius = world.get_region("Darius")
-    ekko = world.get_region("Ekko")
-    illaoi = world.get_region("Illaoi")
-    jinx = world.get_region("Jinx")
-    lux = world.get_region("Lux")
-    samira = world.get_region("Samira")
-    senna = world.get_region("Senna")
-    sett = world.get_region("Sett")
-    teemo = world.get_region("Teemo")
-    thresh = world.get_region("Thresh")
-    vi = world.get_region("Vi")
-    warwick = world.get_region("Warwick")
-    yasuo = world.get_region("Yasuo")
+    starter = world.get_region("Menu")
 
-    starter.connect(ahri, "Ahri")
-    starter.connect(akali, "Akali")
-    starter.connect(blitzcrank, "Blitzcrank")
-    starter.connect(braum, "Braum")
-    starter.connect(caitlyn, "Caitlyn")
-    starter.connect(darius, "Darius")
-    starter.connect(ekko, "Ekko")
-    starter.connect(illaoi, "Illaoi")
-    starter.connect(jinx, "Jinx")
-    starter.connect(lux, "Lux")
-    starter.connect(samira, "Samira")
-    starter.connect(senna, "Senna")
-    starter.connect(sett, "Sett")
-    starter.connect(teemo, "Teemo")
-    starter.connect(thresh, "Thresh")
-    starter.connect(vi, "Vi")
-    starter.connect(warwick, "Warwick")
-    starter.connect(yasuo, "Yasuo")
+    for x in CHAMPIONS:
+        champ = world.get_region(x)
+        starter.connect(champ, x, lambda state: state.has(x, world.player))

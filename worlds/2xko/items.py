@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING, Dict, NamedTuple
 from BaseClasses import Item, ItemClassification
 
 if TYPE_CHECKING:
-    from .world import ClimbWorld
+    from .__init__ import ClimbWorld
 
 ITEM_NAME_TO_ID = {
     "Ahri": 1,
@@ -49,6 +49,7 @@ ITEM_NAME_TO_ID = {
     "Taunt": 110,
 
     "LP": 200,
+    "Win": 201,
 }
 
 AUGMENTS = {
@@ -56,24 +57,24 @@ AUGMENTS = {
 }
 
 DEFAULT_ITEM_CLASSIFICATIONS = {
-    "Ahri": ItemClassification.progression | ItemClassification.useful,
-    "Akali": ItemClassification.progression | ItemClassification.useful,
-    "Blitzcrank": ItemClassification.progression | ItemClassification.useful,
-    "Braum": ItemClassification.progression | ItemClassification.useful,
-    "Caitlyn": ItemClassification.progression | ItemClassification.useful,
-    "Darius": ItemClassification.progression | ItemClassification.useful,
-    "Ekko": ItemClassification.progression | ItemClassification.useful,
-    "Illaoi": ItemClassification.progression | ItemClassification.useful,
-    "Jinx": ItemClassification.progression | ItemClassification.useful,
-    "Lux": ItemClassification.progression | ItemClassification.useful,
-    "Samira": ItemClassification.progression | ItemClassification.useful,
-    "Senna": ItemClassification.progression | ItemClassification.useful,
-    "Sett": ItemClassification.progression | ItemClassification.useful,
-    "Teemo": ItemClassification.progression | ItemClassification.useful,
-    "Thresh": ItemClassification.progression | ItemClassification.useful,
-    "Vi": ItemClassification.progression | ItemClassification.useful,
-    "Warwick": ItemClassification.progression | ItemClassification.useful,
-    "Yasuo": ItemClassification.progression | ItemClassification.useful,
+    "Ahri": ItemClassification.progression,
+    "Akali": ItemClassification.progression,
+    "Blitzcrank": ItemClassification.progression,
+    "Braum": ItemClassification.progression,
+    "Caitlyn": ItemClassification.progression,
+    "Darius": ItemClassification.progression,
+    "Ekko": ItemClassification.progression,
+    "Illaoi": ItemClassification.progression,
+    "Jinx": ItemClassification.progression,
+    "Lux": ItemClassification.progression,
+    "Samira": ItemClassification.progression,
+    "Senna": ItemClassification.progression,
+    "Sett": ItemClassification.progression,
+    "Teemo": ItemClassification.progression,
+    "Thresh": ItemClassification.progression,
+    "Vi": ItemClassification.progression,
+    "Warwick": ItemClassification.progression,
+    "Yasuo": ItemClassification.progression,
 
     "Double Down": ItemClassification.useful,
     "Juggernaut": ItemClassification.useful,
@@ -95,6 +96,7 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "Taunt": ItemClassification.progression,
 
     "LP": ItemClassification.filler,
+    "Win": ItemClassification.progression,
 }
 
 CHAMPIONS = {
@@ -218,15 +220,18 @@ def create_all_items(world: ClimbWorld) -> None:
         for x in ABILITIES:
             if x != ability:
                 itempool.append(world.create_item(x))
-                if x < 2:
+                if "Progressive" in x:
                     itempool.append(world.create_item(x))
+
+    # Fill flagged locations with win condition items
+
 
     # Calculate the fillers needed
     number_of_items = len(itempool)
 
     number_unfilled_loc = len(world.multiworld.get_unfilled_locations(world.player))
 
-    number_fillers = number_of_items - number_unfilled_loc
+    number_fillers = number_unfilled_loc - number_of_items
 
     itempool+= [world.create_filler() for _ in range(number_fillers)]
 
