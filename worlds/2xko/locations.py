@@ -441,4 +441,4 @@ def create_regular_locations(world: ClimbWorld) -> None:
 def create_events(world: ClimbWorld) -> None:
     for x in items.CHAMPIONS:
         region = world.get_region(x)
-        region.add_event(x + " Win Flag", "Win")
+        region.add_event(x + " Win Flag", "Win", location_type = ClimbLocation, item_type=items.ClimbItem)

@@ -1,9 +1,10 @@
 from worlds.LauncherComponents import Component, Type, components, launch
 
 def run_client(*args: str) -> None:
-    from .client.launch import launch_climb_client
+    # from .client.launch import launch_climb_client
     # Just copying as reference from the APQuest directory.
     # Will look into direct launch if it's a desired feature.
+    print("client launch enter")
 
 components.append(
     Component(

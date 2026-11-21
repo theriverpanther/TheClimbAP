@@ -47,5 +47,5 @@ def connect_regions(world: ClimbWorld) -> None:
 
     for x in CHAMPIONS:
         champ = world.get_region(x)
-        menu.connect(champ, x + " Entrance", Has(x, world.player))
+        menu.connect(champ, x + " Entrance", Has(x, 1))
 
