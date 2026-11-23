@@ -59,7 +59,11 @@ class ClimbWorld(World):
 
     def fill_slot_data(self) -> Mapping[str, Any]:
         return self.options.as_dict(
-            "goal_character_count", "ability_sanity", "starting_champions", "starting_fuse", "deathlink"
+            "goal_character_count", "ability_sanity", "starting_champions", "starting_fuse", "deathlink",
+            "shadow", "floor_is_lava", "hold_w_to_block", "wild_pulse", "first_to_ten", "destroyer",
+            "power_of_friendship", "shake_on_it", "fast_friends", "chip_chop", "bloodthirsty", "poison_on_hit",
+            "mash_harder", "butter_thief", "meter_on_taunt", "energize", "laugh_it_off", "damage_up", "hit_me", "built_different",
+            "hands_off", "roll_for_crit"
         )
 
 
