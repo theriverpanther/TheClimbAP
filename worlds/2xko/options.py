@@ -57,29 +57,29 @@ class StartingFuse(Choice):
     random = 6
     default = 0
 
-class ShadowInPool(Toggle):
-    """Enables the augment 'Shadow' in the pool, which makes a clone follow you and duplicates your attacks."""
-    display_name = "ShadowInPool"
+class Shadow(Toggle):
+    """Makes a clone follow you and duplicates your attacks."""
+    display_name = "Enable Shadow Augment"
 
-class FloorIsLavaInPool(Toggle):
-    """Enables the augment 'Floor Is Lava' in the pool, which makes the ground persistently hurt, while being airborne heals you."""
-    display_name = "LavaInPool"
+class FloorIsLava(Toggle):
+    """Makes the ground persistently hurt, while being airborne heals you."""
+    display_name = "Enable Floor Is Lava Augment"
 
-class HoldWToBlockInPool(Toggle):
-    """Enables the augment 'Hold W To Block' in the pool, preventing blocking but buffing damage."""
-    display_name = "WToBlockInPool"
+class HoldWToBlock(Toggle):
+    """Prevents blocking, but buffs damage."""
+    display_name = "Enable W To Block Augment"
 
-class WildPulseInPool(Toggle):
-    """Enables the augment 'Wild Pulse' in the pool, turning light attacks into Wild Combo chains."""
-    display_name = "WildPulseInPool"
+class WildPulse(Toggle):
+    """Turns light attacks into Wild Combo chains by mashing L."""
+    display_name = "Enable Wild Pulse Augment"
 
-class FirstToTenInPool(Toggle):
-    """Enables the augment 'First To Ten' in the pool, which builds break faster by reducing 10% hp per attack (with a full heal at match start)."""
-    display_name = "FirstToTenInPool"
+class FirstToTen(Toggle):
+    """Allows break to build faster by reducing 10% hp per attack (with a full heal at match start)."""
+    display_name = "Enable First To Ten Augment"
 
-class DestroyerInPool(Toggle):
-    """Enables the boss augment 'Destroyer' in the pool, enabling the player to one shot enemy characters."""
-    display_name = "DestroyerInPool"
+class Destroyer(Toggle):
+    """An originally boss only augment that kills a champion in a single hit."""
+    display_name = "Enable Destroyer Augment"
 
 class PowerOfFriendship(Range):
     """Assist damage buff."""
@@ -203,12 +203,12 @@ class ClimbOptions(PerGameCommonOptions):
     starting_champions: StartingChampions
     starting_fuse: StartingFuse
     deathlink: DeathLink
-    shadow: ShadowInPool
-    floor_is_lava: FloorIsLavaInPool
-    hold_w_to_block: HoldWToBlockInPool
-    wild_pulse: WildPulseInPool
-    first_to_ten: FirstToTenInPool
-    destroyer: DestroyerInPool
+    shadow: Shadow
+    floor_is_lava: FloorIsLava
+    hold_w_to_block: HoldWToBlock
+    wild_pulse: WildPulse
+    first_to_ten: FirstToTen
+    destroyer: Destroyer
     power_of_friendship: PowerOfFriendship
     shake_on_it: ShakeOnIt
     fast_friends: FastFriends
@@ -235,7 +235,7 @@ option_groups = [
         "Starting Selection", [StartingChampions, StartingFuse]
     ),
     OptionGroup(
-        "Augments", [ShadowInPool, FloorIsLavaInPool, HoldWToBlockInPool, WildPulseInPool, FirstToTenInPool, DestroyerInPool,
+        "Augments", [Shadow, FloorIsLava, HoldWToBlock, WildPulse, FirstToTen, Destroyer,
                      PowerOfFriendship, ShakeOnIt, FastFriends, ChipChop, Bloodthirsty, PoisonOnHit,MashHarder,ButterThief,
                      MeterOnTaunt, Energize, LaughItOff, DamageUp, HitMe, BuiltDifferent, HandsOff, RollForCrit]
     ),
