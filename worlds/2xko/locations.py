@@ -439,6 +439,7 @@ def create_regular_locations(world: ClimbWorld) -> None:
     yasuo.add_locations(yasuo_locs, ClimbLocation)
 
 def create_events(world: ClimbWorld) -> None:
-    for x in items.CHAMPIONS:
+    sorted_champs = sorted(items.CHAMPIONS)
+    for x in sorted_champs:
         region = world.get_region(x)
         region.add_event(x + " Win Flag", "Win", location_type = ClimbLocation, item_type=items.ClimbItem)

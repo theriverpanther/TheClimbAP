@@ -355,27 +355,28 @@ def create_all_items(world: ClimbWorld) -> None:
 
     if len(world.options.starting_champions.value) < 2:
         if len(world.options.starting_champions.value) == 0:
-            main_champ = world.random.choice(list(CHAMPIONS))
+            main_champ = world.random.choice(sorted(CHAMPIONS))
         else:
-            main_champ = list(world.options.starting_champions.value)[0]
+            main_champ = sorted(world.options.starting_champions.value)[0]
         alt_champ = main_champ
         while alt_champ == main_champ:
-            alt_champ = world.random.choice(list(CHAMPIONS))
+            alt_champ = world.random.choice(sorted(CHAMPIONS))
     elif len(world.options.starting_champions.value) == 2:
-        main_champ = list(world.options.starting_champions.value)[0]
-        alt_champ = list(world.options.starting_champions.value)[1]
+        main_champ = sorted(world.options.starting_champions.value)[0]
+        alt_champ = sorted(world.options.starting_champions.value)[1]
     else:
-        main_champ = world.random.choice(list(world.starting_champions.value))
+        sorted_champs = sorted(world.options.starting_champions.value)
+        main_champ = world.random.choice(sorted_champs)
         alt_champ = main_champ
         while main_champ == alt_champ:
-            alt_champ = world.random.choice(list(world.starting_champions.value))
+            alt_champ = world.random.choice(sorted_champs)
 
     world.push_precollected(world.create_item(main_champ))
     world.push_precollected(world.create_item(alt_champ))
 
     ability = -1
     if world.options.ability_sanity == 1:
-        ability = world.random.choice(list(ABILITIES))
+        ability = world.random.choice(sorted(ABILITIES))
 
     if ability != -1:
         world.push_precollected(world.create_item(ability))
@@ -387,30 +388,46 @@ def create_all_items(world: ClimbWorld) -> None:
         fuse = fuse.replace("_", " ")
 
     else:
-        fuse = world.random.choice(list(FUSES))
+        fuse = world.random.choice(sorted(FUSES))
     world.push_precollected(world.create_item(fuse))
 
     # Start the item pool with items that will always be in the pool
     itempool: list[Item] = []
-    for x in CHAMPIONS:
+    sorted_champs = sorted(CHAMPIONS)
+    for x in sorted_champs:
         if x != main_champ and x != alt_champ:
             itempool.append(world.create_item(x))
 
-    for x in FUSES:
+    sorted_fuses = sorted(FUSES)
+    for x in sorted_fuses:
         if x != fuse:
             itempool.append(world.create_item(x))
 
     # Check for ability sanity
     if world.options.ability_sanity:
-        for x in ABILITIES:
+        sorted_abilities = sorted(ABILITIES)
+        for x in sorted_abilities:
             if x != ability:
                 itempool.append(world.create_item(x))
                 if "Progressive" in x:
                     itempool.append(world.create_item(x))
 
     # Start off with one of one augments
-    for augment in AUGMENTS:
+    sorted_augments = sorted(AUGMENTS)
+    for augment in sorted_augments:
         itempool.append(world.create_item(augment))
+
+    # Handle optional augments
+    if(world.options.shadow):
+        itempool.append(world.create_item("Shadow"))
+    if (world.options.hold_w_to_block):
+        itempool.append(world.create_item("Hold W To Block"))
+    if (world.options.wild_pulse):
+        itempool.append(world.create_item("Wild Pulse"))
+    if (world.options.first_to_ten):
+        itempool.append(world.create_item("First To Ten"))
+    if (world.options.destroyer):
+        itempool.append(world.create_item("Destroyer"))
 
     # Iterate on the chosen amount for each augment
     for x in range(world.options.power_of_friendship):
